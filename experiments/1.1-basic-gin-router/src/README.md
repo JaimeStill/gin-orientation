@@ -24,11 +24,23 @@
 
 - Echo endpoint:
 
+  Without body:
+
   ```bash
   curl -X POST http://localhost:8080/echo
   ```
 
   Expected response: `{"message":"Request received and confirmed"}`
+
+  With JSON body:
+
+  ```bash
+  curl -X POST http://localhost:8080/echo \
+    -H "Content-Type: application/json" \
+    -d '{"name":"John","age":30}'
+  ```
+  
+  Expected response: `{"message":"{\"age\":30,\"name\":\"John\"}"}`
 
 ## How This Resolves the Experiment
 
@@ -44,7 +56,7 @@ The implementation meets all success criteria:
 
 - Server starts without errors
 - GET /health returns 200 with "OK" status
-- POST /echo returns 200 with confirmation message
+- POST /echo returns 200 with confirmation message (or stringified JSON body if provided)
 - Response times are well under 100ms due to Gin's efficient routing
 
 ## Source Code Overview
@@ -55,12 +67,16 @@ The entire implementation is contained in a single file with the following struc
 
 1. **Package Declaration**: Standard Go main package
 2. **Imports**:
+   - `encoding/json` for JSON marshaling
    - `net/http` for HTTP status constants
    - `github.com/gin-gonic/gin` for the web framework
 3. **Main Function**:
    - Creates a default Gin router with logging and recovery middleware
    - Registers GET handler for `/health` endpoint
-   - Registers POST handler for `/echo` endpoint
+   - Registers POST handler for `/echo` endpoint that:
+     - Attempts to parse JSON body if present
+     - Returns stringified JSON body in message if successful
+     - Falls back to default confirmation message if no body or parse error
    - Starts the HTTP server on port 8080
 
 ### Key Components
