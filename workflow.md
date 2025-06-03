@@ -26,19 +26,21 @@ The workflow operates in three distinct phases: Project Development (architectur
 
 ```
 project-root/
-├── .workflow/
-│   ├── roadmap.md
+├── experiments/
+│   └── X.X-name/
+│── memory/
+│   ├── architecture-decisions.md
 │   ├── current-state.md
 │   ├── development-constraints.md
-│   └── prompts/
-├── experiments/
-│   └── hypothesis-XXX-description/
-├── building-blocks/
+│   ├── failed-experiments.md
+│   ├── learning-insights.md
 │   └── verified-patterns.md
-└── memory-banks/
-    ├── architecture-decisions.md
-    ├── failed-experiments.md
-    └── learning-insights.md
+│── prompts/
+│── src/
+│── claude.md
+│── readme.md
+│── roadmap.md
+└── workflow.md
 ```
 
 ## Project Development Phase Prompt
@@ -70,7 +72,7 @@ Do not provide code or implementation details. Focus on architectural understand
 
 ## Project Layout and Documentation
 
-### .workflow/roadmap.md
+### roadmap.md
 
 ```markdown
 # Project Roadmap: [Project Name]
@@ -135,7 +137,7 @@ Do not provide code or implementation details. Focus on architectural understand
 **Focus**: Comments, examples, usage patterns
 ```
 
-### .workflow/current-state.md
+### memory/current-state.md
 
 ```markdown
 # Current Project State
@@ -166,7 +168,7 @@ Do not provide code or implementation details. Focus on architectural understand
 [Brief summary suitable for initializing AI context in new sessions]
 ```
 
-### .workflow/development-constraints.md
+### development-constraints.md
 
 ```markdown
 # Development Constraints
@@ -192,7 +194,7 @@ Do not provide code or implementation details. Focus on architectural understand
 [Track when constraints are violated and lessons learned]
 ```
 
-### .workflow/prompts/planning-phase.md
+### prompts/planning-phase.md
 
 ```markdown
 # Planning Phase Prompt Template
@@ -225,7 +227,7 @@ CONSTRAINTS:
 Provide experimental design only, not implementation code.
 ```
 
-### .workflow/prompts/execution-phase.md
+### prompts/execution-phase.md
 
 ```markdown
 # Execution Phase Prompt Template
@@ -281,7 +283,7 @@ Reference: .workflow/development-constraints.md
 - Provide specific behavioral descriptions of what code does
 ```
 
-### experiments/hypothesis-001-basic-server/experiment.md
+### experiments/1.1-basic-server/readme.md
 
 ```markdown
 # Experiment: Basic HTTP Server
@@ -329,7 +331,7 @@ Reference: .workflow/development-constraints.md
 [What this enables for next experiment]
 ```
 
-### building-blocks/verified-patterns.md
+### memory/verified-patterns.md
 
 ```markdown
 # Verified Patterns
@@ -348,7 +350,7 @@ Reference: .workflow/development-constraints.md
 **Behavior**: [How it actually behaves]
 ```
 
-### memory-banks/architecture-decisions.md
+### memory/architecture-decisions.md
 
 ```markdown
 # Architecture Decisions
@@ -370,7 +372,7 @@ Reference: .workflow/development-constraints.md
 **Status**: Active
 ```
 
-### memory-banks/failed-experiments.md
+### memory/failed-experiments.md
 
 ```markdown
 # Failed Experiments Log
@@ -392,7 +394,7 @@ Reference: .workflow/development-constraints.md
 **Learning**: [What this taught us]
 ```
 
-### memory-banks/learning-insights.md
+### memory/insights.md
 
 ```markdown
 # Learning Insights
@@ -415,42 +417,6 @@ Reference: .workflow/development-constraints.md
 ## Behavioral Insights
 - [Insight 1]: [Understanding about how something actually works]
 - [Insight 2]: [Pattern observed across multiple experiments]
-```
-
-## Visual Studio Code Configuration
-
-### .vscode/settings.json
-
-```json
-{
-  "files.defaultLanguage": "markdown",
-  "markdown.preview.openMarkdownLinks": "inEditor",
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.patterns": {
-    "experiment.md": "*.go, *.log, results.md",
-    "roadmap.md": "current-state.md, development-constraints.md"
-  },
-  "files.associations": {
-    "*.md": "markdown"
-  },
-  "editor.wordWrap": "on",
-  "markdown.extension.toc.levels": "1..3"
-}
-```
-
-### .vscode/extensions.json
-
-```json
-{
-  "recommendations": [
-    "ms-vscode.vscode-go",
-    "yzhang.markdown-all-in-one", 
-    "davidanson.vscode-markdownlint",
-    "ms-vscode.claude-dev",
-    "formulahendry.auto-rename-tag",
-    "christian-kohler.path-intellisense"
-  ]
-}
 ```
 
 ## Git Flow Practices
@@ -486,7 +452,7 @@ main
 **Branch Rules**:
 
 - `main`: Verified building blocks only
-- `experiments/hypothesis-XXX-name`: Individual experiment branches
+- `experiments/X.X-name`: Individual experiment branches
 - `stage-N-name`: Stage completion branches
 - Merge to main only after experiment verification
 - Tag major stage completions
